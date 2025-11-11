@@ -1,3 +1,55 @@
+############################
+# Node / React
+############################
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.*.local
+frontend/.cache/
+
+############################
+# Python / FastAPI
+############################
+backend/venv/
+backend/**/__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+
+############################
+# Databases / data
+############################
+backend/database/*.db
+database/*.db
+*.sqlite
+*.sqlite3
+
+############################
+# OS / Editor
+############################
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+############################
+# Logs
+############################
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+############################
+# Docker/local
+############################
+docker-data/
+*.local
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

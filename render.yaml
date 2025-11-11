@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: eat-rate-love-backend
+    env: docker
+    repo: https://github.com/REPLACE_ME_OWNER/eat-rate-love
+    plan: free
+    region: oregon
+    dockerfilePath: backend/Dockerfile.prod
+    autoDeploy: true
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
+  - type: web
+    name: eat-rate-love-frontend
+    env: docker
+    repo: https://github.com/REPLACE_ME_OWNER/eat-rate-love
+    plan: free
+    region: oregon
+    dockerfilePath: frontend/Dockerfile.prod
+    autoDeploy: true
+    envVars:
+      - key: NGINX_PORT
+        value: "80"
+
+

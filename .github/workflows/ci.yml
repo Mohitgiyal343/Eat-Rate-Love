@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install backend deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+      - name: Static check (compile)
+        run: python -m compileall backend
+      - name: Docker build (backend prod)
+        run: docker build -f backend/Dockerfile.prod -t eat-rate-love-backend:ci .
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend deps
+        working-directory: frontend
+        run: npm ci
+      - name: Build frontend
+        working-directory: frontend
+        env:
+          # For CRA warnings in CI, ensure non-interactive build
+          CI: "true"
+        run: npm run build
+      - name: Docker build (frontend prod)
+        run: docker build -f frontend/Dockerfile.prod -t eat-rate-love-frontend:ci .
+
+
+
+
+
